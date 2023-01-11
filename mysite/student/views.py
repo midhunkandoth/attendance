@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 from .models import Course
 
@@ -13,3 +13,11 @@ def courses(request):
     context = {'courses_list': courses_list}
 
     return render(request, 'student/courses.html', context)
+
+
+def course_detail(request, course_id):
+    try:
+        course = Course.objects.get(pk=course_id)
+    except Course.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'student/detail.html', {'course': course})
