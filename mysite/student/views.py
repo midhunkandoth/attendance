@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.views.generic.edit import CreateView
 
 from .models import Course
 
@@ -21,3 +22,8 @@ def course_detail(request, course_id):
     except Course.DoesNotExist:
         raise Http404("Question does not exist")
     return render(request, 'student/detail.html', {'course': course})
+
+
+class CourseCreateView(CreateView):
+    model = Course
+    fields = "__all__"
