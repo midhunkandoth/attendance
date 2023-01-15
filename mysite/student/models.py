@@ -9,9 +9,6 @@ class Course(models.Model):
     number_of_years = models.IntegerField()
     hod = models.CharField(max_length=50)
 
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'course_id': self.pk})
-
 
 class Student(models.Model):
     first_name = models.CharField(max_length=50)
