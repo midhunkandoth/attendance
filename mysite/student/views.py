@@ -3,6 +3,9 @@ from django.http import HttpResponse, Http404
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 
+from django.contrib.auth.decorators import login_required
+
+
 
 from .models import Course
 
@@ -10,6 +13,7 @@ from .models import Course
 def index(request):
     return HttpResponse("Hello, world. You're at the student index.")
 
+@login_required
 def courses(request):
     courses_list = Course.objects.all().order_by('-number_of_years')
 
