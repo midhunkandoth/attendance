@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 
 
@@ -29,6 +29,16 @@ def course_detail(request, course_id):
 class CourseCreateView(CreateView):
     model = Course
     fields = "__all__"
+    
+    def get_success_url(self):
+        return reverse('detail', kwargs={'course_id': self.object.pk})
+
+
+class CourseUpdateView(UpdateView):
+    model = Course
+    fields = "__all__"
+    template_name_suffix = '_update_form'
+    pk_url_kwarg = 'course_id'
     
     def get_success_url(self):
         return reverse('detail', kwargs={'course_id': self.object.pk})
