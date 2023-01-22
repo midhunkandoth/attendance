@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -30,7 +31,7 @@ def course_detail(request, course_id):
     return render(request, 'student/detail.html', {'course': course})
 
 
-class CourseCreateView(CreateView):
+class CourseCreateView(LoginRequiredMixin, CreateView):
     model = Course
     fields = "__all__"
     
